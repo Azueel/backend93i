@@ -8,6 +8,7 @@ require('dotenv').config();
 app.use(express.json());
 
 app.use('/auth', require('./router/authRouter'));
+app.use('/admin', require('./router/adminRouter'));
 
 dbConnection();
 
