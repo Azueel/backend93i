@@ -1,5 +1,6 @@
 const usuarioModel = require('../model/usuario-model');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const crearUsuario = async (req, res) => {
 	try {
@@ -68,10 +69,22 @@ const loginUsuario = async (req, res) => {
 			});
 		}
 
+		//creamos un objeto el cual definimos los datos que queremos guardar en el token, Recordar no guardar informacion sensible
+		const payload = {
+			name: usuario.name,
+			rol: usuario.rol,
+		};
+
+		const token = jwt.sign(payload, process.env.SECRET_JWT, {
+			expiresIn: '3h',
+		});
+
 		res.status(200).json({
 			msg: 'Usuario logueado',
+			token,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({
 			msg: 'Por favor contactarse con un administrador',
 		});

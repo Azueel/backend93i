@@ -10,7 +10,6 @@ const crearProducto = async (req, res) => {
 		//fin de las validaciones
 
 		//opcional verificar si el producto existe o no y ver como lo encaran
-
 		const producto = new productoModel(req.body);
 
 		//guardarlo en la base de datos
